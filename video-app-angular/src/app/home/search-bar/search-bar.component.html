@@ -1,6 +1,20 @@
 <div class="wrap">
-  <mat-form-field appearance="outline" class="form">
-    <mat-label>Please enter your link here</mat-label>
-    <input matInput />
-  </mat-form-field>
-</div>
+    <form 
+      #searchForm="ngForm" 
+      class="form" 
+      (ngSubmit)="onSubmit()"
+    >
+      <mat-form-field appearance="outline">
+        <mat-label>
+          Please enter your link here
+        </mat-label>
+        <input 
+          matInput 
+          name="inputField" 
+          [(ngModel)]="inputFieldValue" 
+          required 
+        />
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit" class="form__button">Submit</button>
+    </form>
+  </div>
