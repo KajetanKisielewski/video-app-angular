@@ -1,4 +1,4 @@
-import { YOUTUBE_API_TOKEN, VIMEO_API_TOKEN } from "access-tokens";
+import { YOUTUBE_API_TOKEN, VIMEO_API_TOKEN } from 'access-tokens';
 
 export const environment = {
     production: false,

@@ -5,8 +5,8 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 
-import { HomeComponent } from './home.component';
-import { SearchBarComponent } from './search-bar/search-bar.component';
+import { HomeComponent } from '@app/home/home.component';
+import { SearchBarComponent } from '@app/home/search-bar/search-bar.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,6 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
   ],
   exports: [
     HomeComponent,
-    SearchBarComponent
   ]
 })
 export class HomeModule { }
