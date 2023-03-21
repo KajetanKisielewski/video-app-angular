@@ -6,6 +6,7 @@ import { LocalStorageService } from './local-storage.service';
 import { recognizeTheUrlProvider } from '@app/shared/utils/api-utils';
 import { UrlProvider } from '@app/core/enums/url-provider.enum';
 import { Video } from '@app/core/models/video.model';
+import { demoList } from '@app/core/providers/demo-list';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,39 @@ export class VideoService {
     private httpService: HttpService,
     private localStorageService: LocalStorageService
   ) {}
+
+  public uploadDemoList(): void {
+    demoList.forEach((url) => this.addVideo(url));
+  };
+
+  public clearVideos() {
+    this.videos = [];
+    this._videos.next([...this.videos]);
+    this.localStorageService.clearVideos()
+  }
+
+  public sortVideos(isDescending: boolean): void {
+    this.videos.sort( (a, b) => {
+      if (isDescending) return new Date(b.addedAt).getTime() - new Date(a.addedAt).getTime();
+      return new Date(a.addedAt).getTime() - new Date(b.addedAt).getTime();
+    });
+    this._videos.next([...this.videos]);
+  }
+
+  public toggleFavoriteVideo(id: string): void {
+    const index = this.videos.findIndex((v) => v.id === id);
+    if(index === -1) return;
+
+    this.videos[index].isFavorite = !this.videos[index].isFavorite;
+    this._videos.next([...this.videos]);
+    this.localStorageService.updateVideo(this.videos[index]);
+  }
+
+  public removeVideo(id: string) {
+    this.videos = this.videos.filter((v) => v.id !== id);
+    this._videos.next([...this.videos]);
+    this.localStorageService.removeVideo(id);
+  }
   
   public addVideo(url: string): void {
     const recognizedUrlProvider = recognizeTheUrlProvider(url)
@@ -47,9 +81,9 @@ export class VideoService {
       };
 
       this.videos.push(newVideo);
-      this._videos.next([...this.videos])
-      this.localStorageService.addVideo(newVideo)
-    })
+      this._videos.next([...this.videos]);
+      this.localStorageService.addVideo(newVideo);
+    });
   };
 
   private addVimeoVideo(url: string): void {
@@ -69,8 +103,8 @@ export class VideoService {
       };
 
       this.videos.push(newVideo);
-      this._videos.next([...this.videos])
-      this.localStorageService.addVideo(newVideo)
-    })
+      this._videos.next([...this.videos]);
+      this.localStorageService.addVideo(newVideo);
+    });
   };
 }

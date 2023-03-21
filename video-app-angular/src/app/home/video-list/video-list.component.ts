@@ -12,4 +12,12 @@ export class VideoListComponent {
   public videos$: Observable<Video[]> = this.videoService.videos$;
 
   constructor(private videoService: VideoService) {}
+
+  public removeVideo(id: string): void {
+    this.videoService.removeVideo(id);
+  };
+
+  public toggleFavoriteVideo(id: string): void {
+    this.videoService.toggleFavoriteVideo(id);
+  };
 }

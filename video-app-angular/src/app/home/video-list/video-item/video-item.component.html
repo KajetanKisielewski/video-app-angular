@@ -7,8 +7,29 @@
         <span>Added at: {{ video.addedAt | date }}</span>
     </mat-card-content>
     <mat-card-actions class="item__buttons">
-        <mat-icon class="item__button" aria-hidden="false" aria-label="Play video" fontIcon="play_arrow"></mat-icon>
-        <mat-icon class="item__button" aria-hidden="false" aria-label="Delate video" fontIcon="delete"></mat-icon>
-        <mat-icon class="item__button" aria-hidden="false" aria-label="Add video to favorites" fontIcon="favorite"></mat-icon>
+        <mat-icon 
+            class="item__button" 
+            aria-hidden="false" 
+            aria-label="Play video" 
+            fontIcon="play_arrow"
+            matTooltip="Play Video"
+        ></mat-icon>
+        <mat-icon
+            class="item__button" 
+            aria-hidden="false" 
+            aria-label="Delate video" 
+            fontIcon="delete"
+            matTooltip="Delete Video"
+            (click)="emitRemoveVideo()"
+        ></mat-icon>
+        <mat-icon 
+            class="item__button" 
+            aria-hidden="false" 
+            aria-label="Add video to favorites" 
+            fontIcon="favorite"
+            matTooltip="Add video to favorites"
+            (click)="emitToggleFavoriteVideo()"
+        >
+        </mat-icon>
     </mat-card-actions>
 </mat-card>

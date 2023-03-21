@@ -1,1 +1,8 @@
-<p>dashboard works!</p>
+<div class="dashboard">
+    <button class="dashboard__button" mat-raised-button (click)="uploadDemoList()">Upload a demo</button>
+    <button class="dashboard__button" mat-raised-button (click)="clearVideoList()">Clear Video List</button>
+    <button class="dashboard__button" mat-raised-button (click)="sortVideos(true)">Sort from the newest</button>
+    <button class="dashboard__button" mat-raised-button (click)="sortVideos(false)">Sort from the oldest</button>
+    <button class="dashboard__button" mat-raised-button>View: List</button>
+    <button class="dashboard__button" mat-raised-button>View: Tiles</button>
+</div>

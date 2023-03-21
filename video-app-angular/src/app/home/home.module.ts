@@ -23,8 +23,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MaterialModule
   ],
   exports: [
-    HomeComponent,
-    SearchBarComponent
+    HomeComponent
   ]
 })
 export class HomeModule { }

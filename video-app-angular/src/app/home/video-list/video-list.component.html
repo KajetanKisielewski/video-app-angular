@@ -1,3 +1,9 @@
-<div *ngIf="(videos$ | async) as videos" class="video__container">
-    <app-video-item *ngFor="let video of videos" [video]="video"></app-video-item>
+<div class="video__container">
+    <app-video-item 
+        *ngFor="let video of videos$ | async" 
+        [video]="video"
+        (removeVideo)="removeVideo($event)"
+        (toggleFavoriteVideo)="toggleFavoriteVideo($event)"
+    >
+    </app-video-item>
 </div>
