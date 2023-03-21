@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { ApiService } from '@core/services/api.service'
+import { VideoService } from '@app/core/services/video.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -8,11 +8,11 @@ import { ApiService } from '@core/services/api.service'
   styleUrls: ['./search-bar.component.scss']
 })
 export class SearchBarComponent {
-  public inputFieldValue:string = '';
+  public inputFieldValue: string = '';
 
-  constructor(private apiService: ApiService) {}
+  constructor(private videoService: VideoService) {}
   
   public onSubmit(): void {
-    this.apiService.getVimeoVideo(this.inputFieldValue)
+    this.videoService.addVideo(this.inputFieldValue);
   }
 }
