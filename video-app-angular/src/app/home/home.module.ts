@@ -7,13 +7,15 @@ import { HomeComponent } from '@app/home/home.component';
 import { SearchBarComponent } from '@app/home/search-bar/search-bar.component';
 import { VideoListComponent } from '@app/home/video-list/video-list.component';
 import { VideoItemComponent } from '@app/home/video-list/video-item/video-item.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     SearchBarComponent,
     VideoListComponent,
-    VideoItemComponent
+    VideoItemComponent,
+    DashboardComponent
   ],
   imports: [
     CommonModule,
