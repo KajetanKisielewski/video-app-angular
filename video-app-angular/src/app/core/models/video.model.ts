@@ -1,4 +1,4 @@
-export interface YoutubeVideo {
+export interface YouTubeVideo {
   snippet: {
     title: string;
     thumbnails: {

@@ -8,7 +8,7 @@ import { ApiService } from '@core/services/api.service'
   styleUrls: ['./search-bar.component.scss']
 })
 export class SearchBarComponent {
-  public inputFieldValue:string = '';
+  public inputFieldValue: string = '';
 
   constructor(private apiService: ApiService) {}
   
