@@ -44,7 +44,7 @@ export interface Video {
   thumbnail: string;
   embedHtml: string;
   isFavorite: boolean;
-  addedAt: Date,
+  addedAt: Date;
 }
 
 export interface VimeoVideoData {

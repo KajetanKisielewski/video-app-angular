@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
 
-import { Video } from '../models/video.model';
+import { Video } from '@app/core/models/video.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LocalStorageService {
-  private storageKey: string = 'videos'
+  private storageKey = 'videos';
 
-  constructor() { }
-
-  public addVideo(video: Video) {
+  public addVideo(video: Video): void {
     const videosFromStorage = this.getVideos();
     videosFromStorage.push(video);
     localStorage.setItem(this.storageKey, JSON.stringify(videosFromStorage));
