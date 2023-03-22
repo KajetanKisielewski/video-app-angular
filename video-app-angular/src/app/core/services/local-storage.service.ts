@@ -12,18 +12,18 @@ export class LocalStorageService {
     const videosFromStorage = this.getVideos();
     videosFromStorage.push(video);
     localStorage.setItem(this.storageKey, JSON.stringify(videosFromStorage));
-  }
+  };
 
   public getVideos(): Video[] {
     const storedVideos = localStorage.getItem(this.storageKey);
     return storedVideos ? JSON.parse(storedVideos) : [];
-  }
+  };
 
   public removeVideo(id: string): void {
     const videosFromStorage = this.getVideos();
     const updatedVideos = videosFromStorage.filter((v) => v.id !== id);
     localStorage.setItem(this.storageKey, JSON.stringify(updatedVideos));
-  }
+  };
 
   public updateVideo(video: Video): void {
     const videosFromStorage = this.getVideos();
@@ -32,9 +32,18 @@ export class LocalStorageService {
     
     videosFromStorage[index] = video;
     localStorage.setItem(this.storageKey, JSON.stringify(videosFromStorage));
-  }
+  };
+
+  public sortVideos(isDescending: boolean): void {
+    const videosFromStorage = this.getVideos();
+    videosFromStorage.sort((a, b) => {
+      if (isDescending) return new Date(b.addedAt).getTime() - new Date(a.addedAt).getTime();
+      return new Date(a.addedAt).getTime() - new Date(b.addedAt).getTime();
+    });
+    localStorage.setItem(this.storageKey, JSON.stringify(videosFromStorage));
+  };
 
   public clearVideos(): void {
     localStorage.removeItem(this.storageKey);
-  }
+  };
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, take } from 'rxjs';
 
 import { HttpService } from '@app/core/services/http.service'
@@ -12,24 +12,30 @@ import { demoList } from '@app/core/providers/demo-list';
   providedIn: 'root'
 })
 export class VideoService {
-  private videos: Video[] = this.localStorageService.getVideos();
-  private _videos: BehaviorSubject<Video[]> = new BehaviorSubject<Video[]>(this.videos);
-  public videos$: Observable<Video[]> = this._videos.asObservable();
+  private videos!: Video[];
+  private _videos!: BehaviorSubject<Video[]>;
+  public videos$!: Observable<Video[]>;
 
   constructor(
     private httpService: HttpService,
     private localStorageService: LocalStorageService
   ) {}
 
+  public ngOnInit(): void {
+    this.videos = this.localStorageService.getVideos();
+    this._videos = new BehaviorSubject<Video[]>(this.videos);
+    this.videos$ = this._videos.asObservable();
+  }
+
   public uploadDemoList(): void {
     demoList.forEach((url) => this.addVideo(url));
   };
 
-  public clearVideos() {
+  public clearVideos(): void {
     this.videos = [];
     this._videos.next([...this.videos]);
     this.localStorageService.clearVideos()
-  }
+  };
 
   public sortVideos(isDescending: boolean): void {
     this.videos.sort( (a, b) => {
@@ -37,7 +43,8 @@ export class VideoService {
       return new Date(a.addedAt).getTime() - new Date(b.addedAt).getTime();
     });
     this._videos.next([...this.videos]);
-  }
+    this.localStorageService.sortVideos(isDescending);
+  };
 
   public toggleFavoriteVideo(id: string): void {
     const index = this.videos.findIndex((v) => v.id === id);
@@ -46,13 +53,13 @@ export class VideoService {
     this.videos[index].isFavorite = !this.videos[index].isFavorite;
     this._videos.next([...this.videos]);
     this.localStorageService.updateVideo(this.videos[index]);
-  }
+  };
 
   public removeVideo(id: string) {
     this.videos = this.videos.filter((v) => v.id !== id);
     this._videos.next([...this.videos]);
     this.localStorageService.removeVideo(id);
-  }
+  };
   
   public addVideo(url: string): void {
     const recognizedUrlProvider = recognizeTheUrlProvider(url)
@@ -62,7 +69,7 @@ export class VideoService {
 
     // Ten alert zniknie w następnym PR jak będę dodawać obsługę błędów
     else return alert(`Provided ulr is ${UrlProvider.Incorrect}`);
-  }
+  };
 
   private addYouTubeVideo(url: string): void {
     this.httpService.getYoutubeVideo(url).pipe(take(1)).subscribe( resp => {
