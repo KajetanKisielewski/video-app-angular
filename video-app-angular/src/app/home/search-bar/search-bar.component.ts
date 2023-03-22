@@ -8,7 +8,7 @@ import { VideoService } from '@app/core/services/video.service';
   styleUrls: ['./search-bar.component.scss'],
 })
 export class SearchBarComponent {
-  public inputFieldValue: string = '';
+  public inputFieldValue = '';
 
   constructor(private videoService: VideoService) {}
 
