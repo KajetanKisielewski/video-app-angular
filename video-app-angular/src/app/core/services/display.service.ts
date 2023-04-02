@@ -1,25 +1,33 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { DisplayType } from '@app/core/enums/display-type.enum';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class DisplayService {
-  private displayType = DisplayType.List
-  private _displayType = new BehaviorSubject<DisplayType>(this.displayType);
-  public displayType$ = this._displayType.asObservable();
+export class DisplayService implements OnInit {
+  private displayType!: DisplayType;
+  private _displayType!: BehaviorSubject<DisplayType>;
+  public displayType$!: Observable<DisplayType>;
 
-  constructor() {}
+  constructor() {
+    this.ngOnInit();
+  }
+
+  public ngOnInit(): void {
+    this.displayType = DisplayType.List;
+    this._displayType = new BehaviorSubject<DisplayType>(this.displayType);
+    this.displayType$ = this._displayType.asObservable();
+  }
 
   public displayAsTiles(): void {
-    this.displayType = DisplayType.Tiles
-    this._displayType.next(this.displayType)
+    this.displayType = DisplayType.Tiles;
+    this._displayType.next(this.displayType);
   }
 
   public displayAsList(): void {
-    this.displayType = DisplayType.List
-    this._displayType.next(this.displayType)
+    this.displayType = DisplayType.List;
+    this._displayType.next(this.displayType);
   }
 }
