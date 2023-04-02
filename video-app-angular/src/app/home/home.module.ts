@@ -8,6 +8,7 @@ import { SearchBarComponent } from '@app/home/search-bar/search-bar.component';
 import { VideoListComponent } from '@app/home/video-list/video-list.component';
 import { VideoItemComponent } from '@app/home/video-list/video-item/video-item.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     SearchBarComponent,
     VideoListComponent,
     VideoItemComponent,
-    DashboardComponent
+    DashboardComponent,
+    NavBarComponent
   ],
   imports: [
     CommonModule,

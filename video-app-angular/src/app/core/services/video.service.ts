@@ -29,6 +29,16 @@ export class VideoService implements OnInit {
     this.videos$ = this._videos.asObservable();
   }
 
+  public setAllVideos(): void {
+    this.videos = this.localStorageService.getVideos();
+    this._videos.next([...this.videos]);
+  }
+
+  public setFavoriteVideos(): void {
+    this.videos = this.videos.filter((video) => video.isFavorite);
+    this._videos.next([...this.videos]);
+  }
+
   public uploadDemoList(): void {
     demoList.forEach((url) => this.addVideo(url));
   }
