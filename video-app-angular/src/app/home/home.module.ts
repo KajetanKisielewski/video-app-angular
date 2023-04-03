@@ -9,6 +9,8 @@ import { VideoListComponent } from '@app/home/video-list/video-list.component';
 import { VideoItemComponent } from '@app/home/video-list/video-item/video-item.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { DialogComponent } from './video-list/dialog/dialog.component';
+
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
     VideoListComponent,
     VideoItemComponent,
     DashboardComponent,
-    NavBarComponent
+    NavBarComponent,
+    DialogComponent
   ],
   imports: [
     CommonModule,

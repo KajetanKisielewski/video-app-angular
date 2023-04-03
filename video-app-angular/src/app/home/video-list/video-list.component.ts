@@ -1,11 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable, Subscription, take } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
 
 import { Video } from '@app/core/models/video.model';
 import { VideoService } from '@app/core/services/video.service';
 import { DisplayService } from '@app/core/services/display.service';
 import { DisplayType } from '@app/core/enums/display-type.enum';
+import { DialogComponent } from './dialog/dialog.component';
 
 @Component({
   selector: 'app-video-list',
@@ -26,7 +28,8 @@ export class VideoListComponent implements OnInit, OnDestroy {
 
   constructor(
     private videoService: VideoService,
-    private displayService: DisplayService
+    private displayService: DisplayService,
+    private dialog: MatDialog
   ) {}
 
   public ngOnInit(): void {
@@ -53,6 +56,10 @@ export class VideoListComponent implements OnInit, OnDestroy {
 
   public toggleFavoriteVideo(id: string): void {
     this.videoService.toggleFavoriteVideo(id);
+  }
+
+  public playVideo(video: Video): void {
+    this.dialog.open(DialogComponent, { data: video });
   }
 
   public setPaginator(event: PageEvent): void {

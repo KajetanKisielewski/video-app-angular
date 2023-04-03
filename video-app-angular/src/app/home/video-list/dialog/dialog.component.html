@@ -1,0 +1,11 @@
+<div class="dialog">
+  <button class="dialog__button mat-raised-button" (click)="onCloseDialog()">
+    <span>X</span>
+  </button>
+  <iframe
+    class="dialog__iframe"
+    width="480"
+    height="360"
+    [srcdoc]="embedHtml"
+  ></iframe>
+</div>
