@@ -1,0 +1,9 @@
+.dashboard {
+  text-align: center;
+  padding: 30px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+
+  &__button {
+    margin: 0 10px;
+  }
+}

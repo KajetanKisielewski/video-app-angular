@@ -1,19 +1,38 @@
-<mat-card class="video-item">
-  <mat-card-title class="video-item__title" matTooltip="{{ video.title }}">{{ video.title }}</mat-card-title>
-  <img class="video-item__img" mat-card-image [src]="video.thumbnail" />
-  <mat-card-content class="video-item__description">
-    <span>Likes: {{ video.likesCount }}</span>
-    <span>Views: {{ video.viewsCount }}</span>
-    <span>Added at: {{ video.addedAt | date }}</span>
+<mat-card class="video-item--{{ displayType }}">
+  <mat-card-title class="video-item--{{ displayType }}__title" matTooltip="{{ video.title }}">
+    {{ video.title }}
+  </mat-card-title>
+  <img class="video-item--{{ displayType }}__img" mat-card-image [src]="video.thumbnail" />
+  <mat-card-content class="video-item--{{ displayType }}__description">
+    <span class="video-item--{{ displayType }}__description__item"> Likes: {{ video.likesCount }} </span>
+    <span class="video-item--{{ displayType }}__description__item"> Views: {{ video.viewsCount }} </span>
+    <span class="video-item--{{ displayType }}__description__item"> Added at: {{ video.addedAt | date }} </span>
   </mat-card-content>
-  <mat-card-actions class="video-item__buttons">
-    <mat-icon class="video-item__button" aria-hidden="false" aria-label="Play video" fontIcon="play_arrow"></mat-icon>
-    <mat-icon class="video-item__button" aria-hidden="false" aria-label="Delate video" fontIcon="delete"></mat-icon>
+  <mat-card-actions class="video-item--{{ displayType }}__buttons">
     <mat-icon
-      class="video-item__button"
+      class="video-item--{{ displayType }}__button"
+      aria-hidden="false"
+      aria-label="Play video"
+      fontIcon="play_arrow"
+      matTooltip="Play Video"
+      (click)="emitPlayVideo()"
+    ></mat-icon>
+    <mat-icon
+      class="video-item--{{ displayType }}__button"
+      aria-hidden="false"
+      aria-label="Delate video"
+      fontIcon="delete"
+      matTooltip="Delete Video"
+      (click)="emitRemoveVideo()"
+    ></mat-icon>
+    <mat-icon
+      class="video-item--{{ displayType }}__button"
       aria-hidden="false"
       aria-label="Add video to favorites"
       fontIcon="favorite"
-    ></mat-icon>
+      matTooltip="Add video to favorites"
+      (click)="emitToggleFavoriteVideo()"
+    >
+    </mat-icon>
   </mat-card-actions>
 </mat-card>

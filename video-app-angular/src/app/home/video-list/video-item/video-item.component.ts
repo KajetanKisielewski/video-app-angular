@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { Video } from '@app/core/models/video.model';
+import { DisplayType } from '@app/core/enums/display-type.enum';
 
 @Component({
   selector: 'app-video-item',
@@ -9,4 +10,23 @@ import { Video } from '@app/core/models/video.model';
 })
 export class VideoItemComponent {
   @Input() public video!: Video;
+  @Input() public displayType!: DisplayType;
+
+  @Output() public removeVideo = new EventEmitter<string>();
+  @Output() public toggleFavoriteVideo = new EventEmitter<string>();
+  @Output() public playVideo = new EventEmitter<Video>();
+
+  constructor() {}
+
+  public emitRemoveVideo(): void {
+    this.removeVideo.emit(this.video.id);
+  }
+
+  public emitToggleFavoriteVideo(): void {
+    this.toggleFavoriteVideo.emit(this.video.id);
+  }
+
+  public emitPlayVideo(): void {
+    this.playVideo.emit(this.video);
+  }
 }

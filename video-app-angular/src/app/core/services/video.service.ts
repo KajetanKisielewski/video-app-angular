@@ -1,21 +1,74 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, take } from 'rxjs';
+import { Injectable, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable, last, take } from 'rxjs';
 
 import { HttpService } from '@app/core/services/http.service';
 import { LocalStorageService } from './local-storage.service';
 import { recognizeTheUrlProvider } from '@app/shared/utils/api-utils';
 import { UrlProvider } from '@app/core/enums/url-provider.enum';
 import { Video } from '@app/core/models/video.model';
+import { demoList } from '@app/core/providers/demo-list';
 
 @Injectable({
   providedIn: 'root',
 })
-export class VideoService {
-  private videos: Video[] = this.localStorageService.getVideos();
-  private _videos: BehaviorSubject<Video[]> = new BehaviorSubject<Video[]>(this.videos);
-  public videos$: Observable<Video[]> = this._videos.asObservable();
+export class VideoService implements OnInit {
+  private videos!: Video[];
+  private _videos!: BehaviorSubject<Video[]>;
+  public videos$!: Observable<Video[]>;
 
-  constructor(private httpService: HttpService, private localStorageService: LocalStorageService) {}
+  constructor(private httpService: HttpService, private localStorageService: LocalStorageService) {
+    this.ngOnInit();
+  }
+
+  public ngOnInit(): void {
+    this.videos = this.localStorageService.getVideos();
+    this._videos = new BehaviorSubject<Video[]>(this.videos);
+    this.videos$ = this._videos.asObservable();
+  }
+
+  public setAllVideos(): void {
+    this.videos = this.localStorageService.getVideos();
+    this._videos.next([...this.videos]);
+  }
+
+  public setFavoriteVideos(): void {
+    this.videos = this.videos.filter((video) => video.isFavorite);
+    this._videos.next([...this.videos]);
+  }
+
+  public uploadDemoList(): void {
+    demoList.forEach((url) => this.addVideo(url));
+  }
+
+  public clearVideos(): void {
+    this.videos = [];
+    this._videos.next([...this.videos]);
+    this.localStorageService.clearVideos();
+  }
+
+  public sortVideos(isDescending: boolean): void {
+    this.videos.sort((a, b) => {
+      if (isDescending) return new Date(b.addedAt).getTime() - new Date(a.addedAt).getTime();
+      return new Date(a.addedAt).getTime() - new Date(b.addedAt).getTime();
+    });
+    this._videos.next([...this.videos]);
+    this.localStorageService.sortVideos(isDescending);
+  }
+
+  public toggleFavoriteVideo(id: string): void {
+    const index = this.videos.findIndex((v) => v.id === id);
+    if (index === -1) return;
+
+    this.videos[index].isFavorite = !this.videos[index].isFavorite;
+    this._videos.next([...this.videos]);
+    this.localStorageService.updateVideo(this.videos[index]);
+  }
+
+  public removeVideo(id: string) {
+    this.videos = this.videos.filter((v) => v.id !== id);
+    this._videos.next([...this.videos]);
+    this.localStorageService.removeVideo(id);
+  }
 
   public addVideo(url: string): void {
     const recognizedUrlProvider = recognizeTheUrlProvider(url);
