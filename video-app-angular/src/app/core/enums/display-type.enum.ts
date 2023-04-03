@@ -1,4 +1,4 @@
 export enum DisplayType {
-    List = 'list',
-    Tiles = 'tiles'
+  List = 'list',
+  Tiles = 'tiles',
 }

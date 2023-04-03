@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { MaterialModule } from '@app/core/module/material.module';
 import { HomeComponent } from '@app/home/home.component';
@@ -11,7 +12,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { DialogComponent } from './video-list/dialog/dialog.component';
 
-
 @NgModule({
   declarations: [
     HomeComponent,
@@ -20,15 +20,9 @@ import { DialogComponent } from './video-list/dialog/dialog.component';
     VideoItemComponent,
     DashboardComponent,
     NavBarComponent,
-    DialogComponent
+    DialogComponent,
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    MaterialModule
-  ],
-  exports: [
-    HomeComponent
-  ]
+  imports: [CommonModule, FormsModule, MaterialModule],
+  exports: [HomeComponent],
 })
-export class HomeModule { }
+export class HomeModule {}

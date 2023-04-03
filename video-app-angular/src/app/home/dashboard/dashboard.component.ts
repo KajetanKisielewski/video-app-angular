@@ -9,10 +9,7 @@ import { DisplayService } from '@app/core/services/display.service';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
-  constructor(
-    private videoService: VideoService,
-    private displayService: DisplayService
-  ) {}
+  constructor(private videoService: VideoService, private displayService: DisplayService) {}
 
   public uploadDemoList(): void {
     this.videoService.uploadDemoList();

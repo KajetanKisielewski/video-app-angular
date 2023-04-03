@@ -16,10 +16,7 @@ export class VideoService implements OnInit {
   private _videos!: BehaviorSubject<Video[]>;
   public videos$!: Observable<Video[]>;
 
-  constructor(
-    private httpService: HttpService,
-    private localStorageService: LocalStorageService
-  ) {
+  constructor(private httpService: HttpService, private localStorageService: LocalStorageService) {
     this.ngOnInit();
   }
 
@@ -51,8 +48,7 @@ export class VideoService implements OnInit {
 
   public sortVideos(isDescending: boolean): void {
     this.videos.sort((a, b) => {
-      if (isDescending)
-        return new Date(b.addedAt).getTime() - new Date(a.addedAt).getTime();
+      if (isDescending) return new Date(b.addedAt).getTime() - new Date(a.addedAt).getTime();
       return new Date(a.addedAt).getTime() - new Date(b.addedAt).getTime();
     });
     this._videos.next([...this.videos]);
@@ -77,10 +73,8 @@ export class VideoService implements OnInit {
   public addVideo(url: string): void {
     const recognizedUrlProvider = recognizeTheUrlProvider(url);
 
-    if (recognizedUrlProvider === UrlProvider.YouTube)
-      return this.addYouTubeVideo(url);
-    else if (recognizedUrlProvider === UrlProvider.Vimeo)
-      return this.addVimeoVideo(url);
+    if (recognizedUrlProvider === UrlProvider.YouTube) return this.addYouTubeVideo(url);
+    else if (recognizedUrlProvider === UrlProvider.Vimeo) return this.addVimeoVideo(url);
     // Ten alert zniknie w następnym PR jak będę dodawać obsługę błędów
     else return alert(`Provided ulr is ${UrlProvider.Incorrect}`);
   }

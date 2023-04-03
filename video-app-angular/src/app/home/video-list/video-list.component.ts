@@ -26,16 +26,10 @@ export class VideoListComponent implements OnInit, OnDestroy {
   public pageSizeOptions = [3, 6, 9];
   public pageIndex = 0;
 
-  constructor(
-    private videoService: VideoService,
-    private displayService: DisplayService,
-    private dialog: MatDialog
-  ) {}
+  constructor(private videoService: VideoService, private displayService: DisplayService, private dialog: MatDialog) {}
 
   public ngOnInit(): void {
-    this.displaySubscription = this.displayService.displayType$.subscribe(
-      (displayType) => (this.displayType = displayType)
-    );
+    this.displaySubscription = this.displayService.displayType$.subscribe((displayType) => (this.displayType = displayType));
 
     this.videoSubscription = this.videoService.videos$.subscribe((videos) => {
       this.videos = videos;
