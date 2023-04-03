@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, take } from 'rxjs';
+import { BehaviorSubject, Observable, last, take } from 'rxjs';
 
 import { HttpService } from '@app/core/services/http.service';
 import { LocalStorageService } from './local-storage.service';

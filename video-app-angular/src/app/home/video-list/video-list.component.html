@@ -1,10 +1,19 @@
-<div class="video__container">
+<div>
+  <div class="video__container">
     <app-video-item
-        *ngFor="let video of videos$ | async" 
-        [video]="video"
-        [displayType]="displayType"
-        (removeVideo)="removeVideo($event)"
-        (toggleFavoriteVideo)="toggleFavoriteVideo($event)"
+      *ngFor="let video of requestedVideos"
+      [video]="video"
+      [displayType]="displayType"
+      (removeVideo)="removeVideo($event)"
+      (toggleFavoriteVideo)="toggleFavoriteVideo($event)"
     >
     </app-video-item>
+  </div>
+  <mat-paginator
+    [length]="length"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="setPaginator($event)"
+  >
+  </mat-paginator>
 </div>
