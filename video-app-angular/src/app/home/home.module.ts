@@ -1,27 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { MaterialModule } from '@app/core/module/material.module';
 import { HomeComponent } from '@app/home/home.component';
 import { SearchBarComponent } from '@app/home/search-bar/search-bar.component';
+import { VideoListComponent } from '@app/home/video-list/video-list.component';
+import { VideoItemComponent } from '@app/home/video-list/video-item/video-item.component';
+import { HeadersInterceptor } from '@app/core/interceptors/headers.interceptor';
 
 @NgModule({
-  declarations: [
-    HomeComponent,
-    SearchBarComponent
+  declarations: [HomeComponent, SearchBarComponent, VideoListComponent, VideoItemComponent],
+  imports: [CommonModule, FormsModule, MaterialModule, HttpClientModule],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HeadersInterceptor,
+      multi: true,
+    },
   ],
-  imports: [
-    CommonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
-    MatButtonModule
-  ],
-  exports: [
-    HomeComponent,
-  ]
+  exports: [HomeComponent, SearchBarComponent],
 })
-export class HomeModule { }
+export class HomeModule {}

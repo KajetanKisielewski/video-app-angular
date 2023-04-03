@@ -1,0 +1,19 @@
+<mat-card class="video-item">
+  <mat-card-title class="video-item__title" matTooltip="{{ video.title }}">{{ video.title }}</mat-card-title>
+  <img class="video-item__img" mat-card-image [src]="video.thumbnail" />
+  <mat-card-content class="video-item__description">
+    <span>Likes: {{ video.likesCount }}</span>
+    <span>Views: {{ video.viewsCount }}</span>
+    <span>Added at: {{ video.addedAt | date }}</span>
+  </mat-card-content>
+  <mat-card-actions class="video-item__buttons">
+    <mat-icon class="video-item__button" aria-hidden="false" aria-label="Play video" fontIcon="play_arrow"></mat-icon>
+    <mat-icon class="video-item__button" aria-hidden="false" aria-label="Delate video" fontIcon="delete"></mat-icon>
+    <mat-icon
+      class="video-item__button"
+      aria-hidden="false"
+      aria-label="Add video to favorites"
+      fontIcon="favorite"
+    ></mat-icon>
+  </mat-card-actions>
+</mat-card>
